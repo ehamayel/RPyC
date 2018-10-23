@@ -9,4 +9,6 @@ print "{:<30} {:<30}".format('Hostname:', os_info[1])
 print "{:<30} {:<30}".format('Release:',os_info[2])
 print "{:<30} {:<30}".format('Version:',os_info[3])
 print "{:<30} {:<30}".format('Machine type:', os_info[4])
-
+print "{:<30} {:<30}".format('Server UPTime:', c.root.get_boot_time())
+print "{:<30} {:<30}".format('#running proccess:', c.root.get_proccess_info())
+print "{:<30} {:<3}MB".format('Available RAM:', c.root.get_available_ram()/1024/1024)
