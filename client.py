@@ -25,7 +25,7 @@ def read_config():
     for each_server in config.sections():
         ip =  config.get(each_server, 'ip')
         port =  config.get(each_server, 'port')
-        c = rpyc.connect(ip, port)
+        c = rpyc.connect(ip, int(port))
         write_information(each_server, c)
 
 if __name__=="__main__":
