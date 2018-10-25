@@ -6,9 +6,10 @@ import platform
 import multiprocessing
 import psutil
 import datetime
+import argparse
 class MyService(rpyc.Service):
     def on_connect(self, conn):
-        print "A client connected to the server" 
+        print "A client connected to the server"  
         pass
 
     def on_disconnect(self, conn):
@@ -44,10 +45,19 @@ class MyService(rpyc.Service):
 
     def get_available_ram(self):
         return psutil.virtual_memory().active
-        
 
+        
 if __name__ == "__main__":
     from rpyc.utils.server import ThreadedServer
-    t = ThreadedServer(MyService, port=12345,
+    ap = argparse.ArgumentParser(description="Parsing server's Port")
+    ap.add_argument("-p", "--port", dest="server_port", help="get server's port value")
+    args = ap.parse_args()
+    #server_port = args.server_port ? args.server_port : 12345
+    if args.server_port:
+        server_port = int(args.server_port)
+    else:
+        server_port = 12345
+    t = ThreadedServer(MyService, port=server_port,
                        protocol_config={'allow_public_attrs': True})
+    print "server started at port ", server_port
     t.start()
