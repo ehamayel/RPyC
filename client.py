@@ -1,8 +1,16 @@
 #!/usr/bin/env python
 import rpyc
-c = rpyc.connect("localhost", 12345)
-file = open("config.xml", "w")
+import ConfigParser
 
+#reading servers configration
+config = ConfigParser.ConfigParser()
+config.read('config_server.cfg')
+for each_server in config.sections():
+    ip =  config.get(each_server, 'ip')
+    port =  config.get(each_server, 'port')
+    c = rpyc.connect(ip, port)
+
+file = open("result.txt", "w")
 file.write("[server1]\n")
 file.write("{:<30} {:<30}\n".format('The IP:', c.root.get_ip()))
 file.write("{:<30} {:<30}\n".format('Listening on port:', c.root.get_port()))
