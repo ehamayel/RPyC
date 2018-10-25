@@ -8,15 +8,7 @@ import psutil
 import datetime
 import argparse
 class MyService(rpyc.Service):
-    def on_connect(self, conn):
-        print "A client connected to the server"  
-        pass
-
-    def on_disconnect(self, conn):
-        print "A client diss connected from the server"
-        pass
-
-    def get_ip(self):
+   def get_ip(self):
         ip = socket.gethostbyname(socket.gethostname())
         return ip
 
